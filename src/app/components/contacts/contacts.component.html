@@ -1,49 +1,67 @@
-<div class="container bg-light p-4">
-    <div class="row">
-        <div class="col-7 m-auto">
-            <h1 class="text-center">Cadastro de Alunos</h1>      
-            <form [formGroup]="formGroupContacts">
-                <div class="form-group">
-                    <label for="inputName">Nome</label>
-                    <input formControlName="name" type="text" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Nome completo">
-                    <small id="nameHelp" class="form-text text-muted">Digite o seu nome completo</small>
+<div class="container-fluid bg-light p-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-7 mx-auto">
+           
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+
+
+            <div class="button_novo_contato">
+                <button class="btn btn-success"><i class="bi bi-person-plus-fill"></i> Novo Contato</button>
+            </div>                
+               
+               
+            <div class="area_pesquisa d-flex flex-row gap-3">
+                <select class="form-select form-select-sm" style="max-width: 150px;" aria-label=".form-select-sm example">
+                    <option selected>Filtrar por</option>
+                    <option value="filter_by_name">Nome</option>
+                    <option value="filter_by_phone">Telefone</option>
+                    <option value="filter_by_group">Grupo</option>
+                  </select>
+  
+          
+                <div class="d-flex align-items-center gap-2">
+                    <input type="search" id="search_area" name="search_area" class="form-control form-control-sm" placeholder="" style="max-width: 300px;" />
+                    <button class="btn p-0 border-0 bg-transparent"><i class="bi bi-search"></i></button>
                 </div>
-
-                <div class="form-group">
-                    <label for="inputCourse">Curso</label>
-                    <input formControlName="course" type="text" class="form-control" id="inputCourse" aria-describedby="courseHelp" placeholder="Curso" >
-                    <small id="courseHelp" class="form-text text-muted">Digite o nome do curso</small>
-                </div>
-
-                <button type="submit" class="btn btn-primary" >Salvar</button>
-            </form>
-
-            
-
-            <h2>Alunos Cadastrados</h2>
-            
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Curso</th>
-                  </tr>
-                </thead>
-                <tbody>
-                   <!--Esse código aqui faz uma iteração na lista de students
-                   Cria uma variável S que armazena cada elemento da lista-->
-                  <tr>
-                    <!--Para cada elemento s da lista, acessa um atributo especifico -->
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    
-                  </tr>
+            </div>
+               
                 
-                </tbody>
-              </table>
+                
+
+            </div>
         </div>
+    </div>
 
 
+   
+    <div class="contact_list container">
+        <div *ngFor="let c of contacts" class="contact-card d-flex align-items-center border-2 border-dark shadow-lg rounded p-3 mb-3  ">
+           
+            <div class="contact-photo d-flex align-items-center justify-content-center me-3 rounded-circle overflow-hidden">
+                <img [src]="c.photo" alt="Foto do contato" class="w-100 h-100 object-fit-cover">
+            </div>
+
+            <div class="contact_info flex-grow-1">
+                <div class="contact_id id_font">id: {{c.id}}</div>
+                <div class="contact_name name_font fw-bold fs-5 mb-1">{{c.name}}</div>
+                <div class="contact_phone text-purple mb-1">{{c.phone_number}}</div>
+                <div class="contact_group text-black fst-italic">{{c.group}}</div>
+            </div>
+
+            <div class="contact_actions d-flex gap-2">
+                <button (click)="favoritarContato(c)" class="btn p-0 border-0 bg-transparent"  [class.favorited]="c.favorite">
+                    <!--Caso favorite seja true pega o icone de preenchido, caso contrario de vazio-->
+                    <i class="{{c.favorite ? 'bi bi-star-fill' : 'bi bi-star'}}"></i>
+                </button>
+                <a class="btn p-0 border-0 bg-transparent" routerLink="/contact_info">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <button (click)="deletarContato(c.id)" class="btn p-0 border-0 bg-transparent">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
 </div>

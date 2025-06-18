@@ -10,9 +10,9 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { GroupsComponent } from './components/groups/groups.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,7 @@ import { GroupsComponent } from './components/groups/groups.component';
     ContactsComponent,
     NavbarComponent,
     FavoritesComponent,
-    ContactInfoComponent,
-    GroupsComponent
+    ContactInfoComponent
   ],
   imports: [
     BrowserModule,

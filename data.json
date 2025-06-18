@@ -1,0 +1,29 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Jessica do Creu",
+      "phone_number": 119229312312,
+      "email":"pedraodasostras@gmail.com",
+      "photo":"https://picsum.photos/200/200",
+      "date_birth": "12-01-2004",
+      "address":"Lucas alves",
+      "created_at": "12-01-2004",
+      "group": "PEDRAO",
+      "favorite": true
+    },
+    {
+      "id": 2,
+      "name": "Jessica do Creu",
+      "phone_number": 119229312312,
+      "email":"pedraodasostras@gmail.com",
+      "photo":"aaldasldla",
+      "date_birth": "12-01-2004",
+      "address":"Lucas alves",
+      "created_at": "12-01-2004",
+      "group": "PEDRAO",
+      "favorite": true
+    }
+  ]
+  
+}

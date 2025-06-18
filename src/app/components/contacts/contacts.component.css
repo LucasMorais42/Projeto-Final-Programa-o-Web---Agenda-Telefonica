@@ -1,0 +1,39 @@
+.id_font{
+    background-color: rgb(255, 255, 255);
+ 
+    
+    text-align: center;
+    width: 100px;
+    height: fit-content;
+    color: black;
+    font-weight: 500;
+}
+
+.name_font{
+    color: black;
+    font-weight: bold;
+}
+
+.text-purple {
+    color: #4b0082;
+  }
+  
+
+  .btn {
+    transition: all 0.2s;
+  }
+  
+  .btn:hover {
+    color: #000;
+    transform: scale(1.1);
+  }
+  
+ 
+  .contact-list {
+    max-width: 800px;
+  }
+  
+  .contact-card {
+    border: 1px solid rgb(104, 104, 104);
+    box-shadow: 5px 5px 5px black;
+  }

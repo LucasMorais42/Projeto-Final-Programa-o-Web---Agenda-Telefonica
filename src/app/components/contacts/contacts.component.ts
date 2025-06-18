@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../contact';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ContactsService } from '../../services/contacts.service';
 
 @Component({
   selector: 'app-contacts',
@@ -9,10 +10,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrl: './contacts.component.css'
 })
 export class ContactsComponent implements OnInit{
-  contact: Contact[] = [];
+
+  contacts: Contact[] = [];
   formGroupContacts: FormGroup;
 
-  constructor(private formBuilder: FormBuilder){
+  constructor(private contactService: ContactsService,private formBuilder: FormBuilder){
+
     this.formGroupContacts = formBuilder.group({
       id: [''],
       name: [''],
@@ -22,12 +25,30 @@ export class ContactsComponent implements OnInit{
       date_birth: [''],
       social_media: [''],
       created_at: [''],
-      category: [''],
+      group: [''],
       favorite: [''],
 
     })
   }
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.carregarContatos();
   }
+
+  carregarContatos(){
+    this.contactService.getAllContacts().subscribe({
+      next: json => this.contacts = json
+    })
+  }
+
+  favoritarContato(contato: any){
+
+  }
+  editarContato(contato: any){
+
+  }
+  deletarContato(contato: any){
+
+  }
+
 }

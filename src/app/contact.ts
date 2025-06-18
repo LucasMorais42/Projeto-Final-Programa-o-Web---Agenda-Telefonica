@@ -6,8 +6,8 @@ export interface Contact{
     email: string,
     photo: string,
     date_birth: Date,
-    social_media: string[],
+    address: string,
     created_at: Date,
-    category: Object,
+    group: string,
     favorite: boolean
 };
