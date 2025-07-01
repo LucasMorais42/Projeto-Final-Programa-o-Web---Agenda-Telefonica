@@ -2,14 +2,16 @@ import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
-import { ContactInfoComponent } from './components/contact-info/contact-info.component';
-import { GroupsComponent } from './components/groups/groups.component';
+import { NewContactComponent } from './new-contact/new-contact.component';
+import { ContactInfoComponent } from './contact-info/contact-info.component';
+
+
 
 const routes: Routes = [
   {path: 'contacts', component: ContactsComponent},
   {path: 'favorites', component: FavoritesComponent},
-  {path: 'groups', component: GroupsComponent},
-  {path: 'contact_info', component: ContactInfoComponent} //acessado apenas via component ContactsComponent
+  {path:'newcontact', component: NewContactComponent},
+  {path:'contact-info', component: ContactInfoComponent}
 ];
 
 @NgModule({

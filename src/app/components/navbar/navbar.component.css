@@ -1,11 +1,17 @@
-.navbar{
-    background-color: white;
+li.nav-item{
+    box-shadow: 1px 2px 10px black;
+    border-radius: 8px;
+    width:auto;
+    text-align: center;
+    
 }
 
 
-.nav-item .active{
+li.nav-item .active{
     border-radius: 8px;
-    box-shadow:  0px 5px 20px black;
+    background-color: #0049b6;
     font-weight: 500;
 }   
+
+
 

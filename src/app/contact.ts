@@ -2,12 +2,13 @@ export interface Contact{
 
     id: number,
     name: string,
-    phone_number: number, //mostrar no formato (XX) XXXXX-XXXX
+    nickname: string,
+    phone_number: string, 
     email: string,
-    photo: string,
+    created_at: Date,
     date_birth: Date,
     address: string,
-    created_at: Date,
     group: string,
-    favorite: boolean
+    blocked: boolean,
+    favorite: boolean, 
 };

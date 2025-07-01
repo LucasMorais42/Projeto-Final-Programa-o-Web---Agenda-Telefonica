@@ -2,28 +2,27 @@
   "contacts": [
     {
       "id": 1,
-      "name": "Jessica do Creu",
-      "phone_number": 119229312312,
-      "email":"pedraodasostras@gmail.com",
-      "photo":"https://picsum.photos/200/200",
-      "date_birth": "12-01-2004",
-      "address":"Lucas alves",
-      "created_at": "12-01-2004",
-      "group": "PEDRAO",
+      "name": "Jessica",
+      "nickname": "Jessiquinha",
+      "phone_number": 11931231231,
+      "email": "jessicaafera@gmail.com",
+      "created_at": "12-02-2025",
+      "date_birth": "21-01-2004",
+      "address": "Rua das Ostras",
+      "blocked": false,
       "favorite": true
     },
     {
       "id": 2,
-      "name": "Jessica do Creu",
-      "phone_number": 119229312312,
-      "email":"pedraodasostras@gmail.com",
-      "photo":"aaldasldla",
-      "date_birth": "12-01-2004",
-      "address":"Lucas alves",
-      "created_at": "12-01-2004",
-      "group": "PEDRAO",
-      "favorite": true
+      "name": "Jessica",
+      "nickname": "Jessiquinha",
+      "phone_number": 11931231231,
+      "email": "jessicaafera@gmail.com",
+      "created_at": "12-02-2025",
+      "date_birth": "21-01-2004",
+      "address": "Rua das Ostras",
+      "blocked": false,
+      "favorite": false
     }
   ]
-  
 }

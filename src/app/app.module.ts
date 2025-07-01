@@ -9,10 +9,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
-import { ContactInfoComponent } from './components/contact-info/contact-info.component';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BlockedsComponent } from './blockeds/blockeds.component';
+import { NewContactComponent } from './new-contact/new-contact.component';
+import { ContactInfoComponent } from './contact-info/contact-info.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContactsComponent,
     NavbarComponent,
     FavoritesComponent,
+    BlockedsComponent,
+    NewContactComponent,
     ContactInfoComponent
   ],
   imports: [

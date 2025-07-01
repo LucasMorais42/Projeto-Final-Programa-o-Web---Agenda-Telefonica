@@ -1,8 +1,9 @@
+import { Contact } from './../contact';
 import { FavoritesComponent } from './../components/favorites/favorites.component';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Contact } from '../contact';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,29 @@ export class ContactsService {
     return this.http.get<Contact[]>(this.apiUrl);
   }
 
-  editContact(){
-
+  saveContact(contact: Contact): Observable<Contact>{
+    return this.http.post<Contact>(this.apiUrl, contact);
   }
+
+  editContact(contact:Contact):Observable<Contact>{
+      return this.http.put<Contact>(`${this.apiUrl}/${contact.id}`, contact);
+  }
+
+  deleteContact(contact: Contact):Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/${contact.id}`);
+    
+  }
+
+
   favoriteContact(){
 
   }
-  deleteContact(){
+
+  blockContact(){
     
   }
+ 
+
 
 
 }

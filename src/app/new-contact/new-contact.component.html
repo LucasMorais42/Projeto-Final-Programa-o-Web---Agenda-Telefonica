@@ -1,0 +1,76 @@
+<div class="container">
+   
+        <h1 class="text-center mb-4 text-primary">
+            <i class="bi bi-person-lines-fill me-2"></i>Cadastro de Contatos
+        </h1>
+    
+    <div class="d-flex flex-row flex-wrap">
+        <form [formGroup]="formGroupContacts" class="form g-3 w-100">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="contact_name">Nome</label>
+                    <input formControlName="name" type="text" class="form-control" id="contact_name" placeholder="Digite o nome do contato">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="contact_nickname">Apelido</label>
+                    <input formControlName="nickname"  type="text" class="form-control" id="contact_nickname" placeholder="Digite o apelido do contato">
+                </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                  <label for="contact_phone">Telefone</label>
+                  <input formControlName="phone_number" type="tel" class="form-control" id="contact_phone" placeholder="Digite o telefone do contato">
+              </div>
+
+              <div class="form-group col-md-6">
+                  <label for="contact_email">E-mail</label>
+                  <input formControlName="email" type="email" class="form-control" id="contact_email" placeholder="Digite o email do contato">
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+                <label for="contact_adress">Endereço</label>
+                <input formControlName="address" type="text" class="form-control" id="contact_adress" placeholder="Digite o endereço do contato">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="contact_datebirth"><i class="bi bi-cake2-fill me-2"></i>Aniversário</label>
+                <input formControlName="date_birth" type="date" class="form-control" id="contact_datebirth">
+            </div>
+        </div>
+           
+
+        <div class="form-group">
+          <label for="contact_group">Grupo do Contato</label>
+              <select formControlName="group" class="form-control" id="contact_group">
+                <option>Familia</option>
+                <option>Trabalho</option>
+                <option>Amigos</option>
+                <option>Outros</option>
+              </select>
+          </div>
+
+          <i class="bi bi-star-fill me-2"></i>Adicionar aos Favoritos?
+          <div class="form-check">
+            <input formControlName="favorite" class="form-check-input" type="radio" name="radio_favorite" id="radio_favorite_yes" value=true>
+            <label class="form-check-label" for="radio_favorite_yes">
+              Sim
+            </label>
+          </div>
+          <div class="form-check">
+            <input formControlName="favorite" class="form-check-input" type="radio" name="radio_favorite" id="radio_favorite_no" value=false>
+            <label class="form-check-label" for="radio_favorite_no">
+              Não
+            </label>
+          </div>
+
+          <button (click)="novoContato()" type="submit" class="btn btn-primary">Criar Contato</button>
+            
+    </form>
+  </div>
+   
+</div>
