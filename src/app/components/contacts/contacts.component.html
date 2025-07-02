@@ -11,71 +11,258 @@
                     <i class="bi bi-person-plus-fill me-2"></i> Novo Contato
                 </a>
                 
-                <div class="d-flex flex-grow-1 gap-2" style="max-width: 600px;">
-                    <div class="input-group input-group-sm flex-grow-1">
-                        <input type="search" class="form-control" placeholder="Pesquisar contatos...">
-                        <button class="btn btn-outline-secondary" type="button">
+                <form [formGroup]="formFilterContact" class="d-flex flex-grow-1 gap-2" style="max-width: 600px;">
+                    <div>
+                        <select formControlName="campo" class="form-select form-select name">
+                            <option value="name">Nome</option>
+                            <option value="group">Grupo</option>
+                            <option value="phone_number">Telefone</option>
+                        </select>
+                    </div>
+                    <div class="input-group input-group flex-grow-1">
+                        <input type="search" formControlName="valor_pesquisado" class="form-control" placeholder="Pesquisar contatos...">
+                        <button class="btn btn-outline-secondary" type="button" (click)="filtrarContatos()">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
 
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
+    <div class="row justify-content-center p-2">
+        <div class="col-12 col-md-10 col-lg-8 contatos">
             <!--Index será usado para passar um contato em específico para as funções de favoritar e listar mais dados
             Basicamente ele pega o indice (id) do contato em específico-->
-            <div *ngFor="let c of contacts; let i = index" class="contact-card card mb-3 border-0 shadow-sm">
-                <div class="card-body py-2">
-                    
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div>
-                            <div class="fw-bold">{{ c.name }} <span class="fw-light">({{c.nickname}})</span></div>
-                            <div class="text-muted small">{{ c.phone_number }}</div>
-                            <div class="fw-medium">{{c.email}}</div>
-                        </div>
-                        <div class="d-flex gap-2">
-                            <button (click)="favoritarContato(c)" class="btn btn-sm p-1" 
+            <div *ngFor="let c of filtred_contacts; let i = index" class="contact-card card mb-3 border-0  rounded shadow-sm">
+                <div class="card-body d-flex flex-column justify-content-center p-4">
+        
+                    <div  *ngIf="viewing_details[i]==false && editing[i]==false" class=" justify-content-center align-items-center mb-2">
+                      
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="fw-bold text-center">{{ c.id }}</div>
+                                <div class="fw-bold text-center">{{ c.name }} <span class="fw-light">({{c.nickname}})</span></div>
+                                <div class="text-muted small text-center">Telefone: {{ c.phone_number }}</div>
+                                <div class="fw-medium text-center">E-mail: {{c.email}}</div>  
+                            </div>
+
+                            <div class="d-flex flex-column col-md-6 gap-2">
+                                <button (click)="favoritarContato(c)" class="btn btn-sm p-1" 
                                     [ngClass] = "c.favorite? 'btn-warning' : 'btn-outline-warning'" >
-                                <i [ngClass]="c.favorite? 'bi-star-fill': 'bi-star'"></i>
-                            </button>
-                            <button (click)="MostrarMais(i, true)" class="btn btn-sm btn-outline-primary p-1">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button (click)="deletarContato(c)" class="btn btn-sm btn-outline-danger p-1">
-                                <i class="bi bi-trash"></i>
+                                 <i [ngClass]="c.favorite? 'bi-star-fill': 'bi-star'"></i> {{c.favorite? 'Desfavoritar' : 'Favoritar'}}
+                                </button>
+                        
+                                <button (click)="MostrarMais(c, i, true)" class="btn btn-sm btn-primary p-1">
+                                    <i class="bi bi-pencil"></i> Editar Contato
+                                </button>
+                                <button (click)="deletarContato(c)" class="btn btn-sm btn-danger p-1">
+                                    <i class="bi bi-trash"></i> Excluir Contato
+                                </button>
+                            </div>
+                        </div>
+                          
+                        
+                        <div class="row mt-5">
+                            <button (click)="MostrarMais(c, i, false)" class="btn btn-link p-0 text-decoration-none" style="font-size: 0.875rem;">
+                                <i class="bi bi-chevron-down me-2"></i>Mostrar Mais
                             </button>
                         </div>
                     </div>
+                   
 
                     <!--Chama a função vendo detalhes, passando o indice do contato, exemplo:
                     chama viewing_details passando o indice 2, ou seja, contato do id 2-->
-                    <div *ngIf="viewing_details[i]" class="mt-3 border-top pt-2"></div>
-                        <!--Caso esteja editando o contato, vai abrir essas opções-->
+                    <div *ngIf="viewing_details[i]" class="mt-3 border-top pt-2">
+                                           <!--Caso esteja editando o contato, vai abrir essas opções-->
                         <!--Se editing for true, entra aqui direto-->
-                        <div *ngIf="editing[i]">
-                            <input [(ngModel)]="c.name" class="form-control mb-2">
-                            <input [(ngModel)]="c.nickname" class="form-control mb-2">
+                        <div *ngIf="editing[i]" class="d-flex flex-row flex-wrap">
+                            <p class="fw-bolder">Edite os dados do contato</p>
+                            <form [formGroup]="formEditingContact" class="form g-3 w-100">
+                                <div class="row">
+                                    <div class="fw-bold">
+                                        <label for="contact_id">ID</label>
+                                        <input formControlName="id" type="text" class="form-control-plaintext" readonly>
+                                    </div>
+                                </div>
+                              
+                                <hr>
+                                <div class="row">
+                                    <h6 class="fw-bolder">Informações Pessoais</h6>
+                                   
+                                    <div class="form-group col-md-4 fw-bold">
+                                        <label for="contact_name">Nome</label>
+                                        <input formControlName="name" type="text" class="form-control mb-2" id="contact_nickname">
+                                    </div>
+
+                                    <div class="form-group col-md-4 fw-bold">
+                                        <label for="contact_nickname">Apelido</label>
+                                        <input formControlName="nickname" type="text" class="form-control mb-2" id="contact_nickname" >
+                                    </div>
+
+                                    <div class="form-group col-md-4 fw-bold">
+                                        <label for="contact_datebirth">Aniversário</label>
+                                        <input formControlName="date_birth" type="text" class="form-control mb-2" id="contact_datebirth" placeholder="Digite no formato DD-MM-YYYY">
+                                    </div>
+                                    
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <h6 class="fw-bolder">Informações de Contato</h6>
+                                    <div class="form-group col-md-4 fw-bold">
+                                        <label for="contact_email">E-mail</label>
+                                        <input formControlName="email" type="email" class="form-control mb-2" id="contact_email">
+                                    </div>
+
+                                    <div class="form-group col-md-4 fw-bold">
+                                        <label for="contact_phone">Telefone</label>
+                                        <input formControlName="phone_number" type="text" class="form-control mb-2" id="contact_phone">
+                                    </div>
+
+                                    <div class="form-group col-md-4 fw-bold">
+                                        <label for="contact_adress">Endereço</label>
+                                        <input formControlName="address" type="text" class="form-control mb-2" id="contact_adress">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row d-flex justify-content-center align-items-center">
+                                    <h6 class="fw-bolder">Informações Gerais</h6>
+                                    <div class="form-group col-md-3 fw-bold">
+                                        <label for="contact_createdat">Data de Criação</label>
+                                        <input formControlName="created_at" type="datetime"  class="form-control-plaintext" readonly id="contact_createdat">
+                                    </div>
+
+                                    <div class="form-group col-md-3 fw-bold">
+                                        <label for="contact_group">Grupo do Contato</label>
+                                        <select formControlName="group" class="form-select" id="contact_group">
+                                            <option value="Familia">Familia</option>
+                                            <option value="Trabalho">Trabalho</option>
+                                            <option value="Amigos">Amigos</option>
+                                            <option value="Outros">Outros</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <button (click)="favoritarContato(c)" class="btn btn-sm p-1 fw-bold" 
+                                        [ngClass] = "c.favorite? 'btn-warning' : 'btn-outline-warning'">
+                                        <i [ngClass]="c.favorite? 'bi-star-fill': 'bi-star'"></i>
+                                        {{c.favorite? 'Desfavoritar' : 'Favoritar'}}
+                                    </button>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <button (click)="bloquearContato(c)" class="btn btn-sm p-1 fw-bold" 
+                                            [ngClass]="c.blocked ? 'btn-danger' : 'btn-outline-danger'">
+                                            
+                                            <i [ngClass]="c.blocked ? 'bi-lock-fill' : 'bi-unlock'"></i>
+                                            {{ c.blocked ? 'Desbloquear' : 'Bloquear' }}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <button (click)="editarContato()" class="btn btn-success btn-sm p-1 ">
+                                    <i class="bi bi-check-circle-fill me-2"></i>Editar Contato</button>
+    
+                                </div>
+                            </form>
                         </div>
 
-                        <!--aqui vai funcionar do tipo, se editing = false, entra aqui por que o operador ! vai transformar em true-->
-                        <div *ngIf="!editing[i]">
+                        <!--- aqui vai funcionar do tipo, se editing = false, entra aqui por que o operador ! vai transformar em true>!-->
+                        <div *ngIf="!editing[i]" class="p-4">
+                            <p class="fw-bolder">Dados do contato</p>
+                            <form [formGroup]="formEditingContact" class="form g-3 w-100">
+                                <div class="row">
+                                    <div class="fw-bold">
+                                        <label for="contact_id">ID</label>
+                                        <input formControlName="id" type="text" class="form-control-plaintext" readonly>
+                                    </div>
+                                </div>
+                              
+                                <hr>
+                                <div class="row">
+                                    <h6 class="fw-bolder">Informações Pessoais</h6>
+                                   
+                                    <div class="form-group col-md-4">
+                                        <label for="contact_name" class="fw-bold">Nome</label>
+                                        <input formControlName="name" type="text" class="form-control-plaintext" readonly id="contact_nickname">
+                                    </div>
 
+                                    <div class="form-group col-md-4">
+                                        <label for="contact_nickname">Apelido</label>
+                                        <input formControlName="nickname" type="text" class="form-control-plaintext" readonly id="contact_nickname" >
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="contact_datebirth">Aniversário</label>
+                                        <input formControlName="date_birth" type="text" class="form-control-plaintext" readonly id="contact_datebirth">
+                                    </div>
+                                    
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <h6 class="fw-bolder">Informações de Contato</h6>
+                                    <div class="form-group col-md-4">
+                                        <label for="contact_email">E-mail</label>
+                                        <input formControlName="email" type="email" class="form-control-plaintext" readonly id="contact_email">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="contact_phone">Telefone</label>
+                                        <input formControlName="phone_number" type="text" class="form-control-plaintext" readonly id="contact_phone">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="contact_adress">Endereço</label>
+                                        <input formControlName="address" type="text" class="form-control-plaintext" readonly id="contact_adress">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <h6 class="fw-bolder">Informações Gerais</h6>
+                                    <div class="form-group col-md-3">
+                                        <label for="contact_group">Data de Criação</label>
+                                        <input formControlName="created_at" type="datetime"  class="form-control-plaintext" readonly id="contact_group">
+                                    </div>
+
+                                    
+                                    <div class="form-group col-md-3">
+                                        <label for="contact_group">Grupo</label>
+                                        <input formControlName="group" type="text"  class="form-control-plaintext" readonly id="contact_group">
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <i [ngClass]="c.blocked? 'bi-lock-fill me-2':''"></i><span class="text-danger fw-bold">{{c.blocked? 'Bloqueado' : ''}}</span>
+                                    </div>
+
+                                    
+                                    <div class="form-group col-md-3">
+                                        <i [ngClass]="c.favorite? 'bi-star-fill me-2': ''"></i>
+                                        <span class="text-warning fw-bold">{{c.favorite? 'Favorito' : ''}}</span>
+                                    </div>
+                                   
+                                </div>
+
+                                <div class="row d-flex justify-content-end pt-2">
+                                    <button (click)="MostrarMais(c, i, false)" class="btn btn-link p-0 text-decoration-none" style="font-size: 0.875rem;">
+                                        <i class="bi bi-chevron-up me-2"></i>Mostrar Menos
+                                    </button>
+                                </div>
+                           
+                            </form>
+                          
                         </div>
-                        
+                    </div>
                    
                     
-                    <!-- Botão Mostrar mais/menos -->
-                    <div class="d-flex justify-content-end pt-2">
-                        <button (click)="MostrarMais(i, false)" class="btn btn-link p-0 text-decoration-none" style="font-size: 0.875rem;">
-                            <i class="bi bi-info-circle me-2"></i>Mostrar Mais Informações
-                        </button>
-                    </div>
+    
+                    
                 </div>
             </div>
         </div>
     </div>
-</div>

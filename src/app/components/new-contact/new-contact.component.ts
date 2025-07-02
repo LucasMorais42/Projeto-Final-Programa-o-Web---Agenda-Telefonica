@@ -1,4 +1,4 @@
-import { ContactsService } from './../services/contacts.service';
+import { ContactsService } from '../../services/contacts.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -24,6 +24,7 @@ export class NewContactComponent {
       created_at: [''],
       date_birth: [''],
       address: [''],
+      group: [''],
       blocked: [''],
       favorite: ['']
     })
@@ -37,7 +38,7 @@ export class NewContactComponent {
       created_at: new Date().toISOString(),
       blocked: false,
       //no caso do formgroup.value apenas pega um cópia, funciona para leitura, mas não pra editar
-      favorite: this.formGroupContacts.value.favorite=='yes'? true : false
+      favorite: this.formGroupContacts.value.favorite=='true'? true : false
     })
 
 

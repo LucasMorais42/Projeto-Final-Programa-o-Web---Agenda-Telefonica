@@ -11,9 +11,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BlockedsComponent } from './blockeds/blockeds.component';
-import { NewContactComponent } from './new-contact/new-contact.component';
-import { ContactInfoComponent } from './contact-info/contact-info.component';
+import { BlockedsComponent } from './components/blockeds/blockeds.component';
+import { NewContactComponent } from './components/new-contact/new-contact.component';
+
 
 @NgModule({
   declarations: [
@@ -24,8 +24,7 @@ import { ContactInfoComponent } from './contact-info/contact-info.component';
     NavbarComponent,
     FavoritesComponent,
     BlockedsComponent,
-    NewContactComponent,
-    ContactInfoComponent
+    NewContactComponent
   ],
   imports: [
     BrowserModule,

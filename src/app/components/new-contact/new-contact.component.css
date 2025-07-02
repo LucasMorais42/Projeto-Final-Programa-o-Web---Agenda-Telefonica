@@ -1,0 +1,12 @@
+.forms{
+    box-shadow: 5px 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+
+.row{
+    margin-bottom: 10px;
+}
