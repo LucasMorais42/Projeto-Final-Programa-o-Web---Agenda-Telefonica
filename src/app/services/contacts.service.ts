@@ -12,7 +12,7 @@ export class ContactsService {
 
   constructor(private http:HttpClient) { }
  
-  private apiUrl = "http://localhost:3000/contacts";
+  private apiUrl = "http://localhost:8080/contacts";
 
   getAllContacts(): Observable<Contact[]>{
     return this.http.get<Contact[]>(this.apiUrl);
@@ -30,17 +30,4 @@ export class ContactsService {
     return this.http.delete<void>(`${this.apiUrl}/${contact.id}`);
     
   }
-
-
-  favoriteContact(){
-
-  }
-
-  blockContact(){
-    
-  }
- 
-
-
-
 }

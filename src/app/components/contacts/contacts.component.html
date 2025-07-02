@@ -15,7 +15,7 @@
                     <div>
                         <select formControlName="campo" class="form-select form-select name">
                             <option value="name">Nome</option>
-                            <option value="group">Grupo</option>
+                            <option value="group_name">Grupo</option>
                             <option value="phone_number">Telefone</option>
                         </select>
                     </div>
@@ -137,7 +137,7 @@
 
                                     <div class="form-group col-md-3 fw-bold">
                                         <label for="contact_group">Grupo do Contato</label>
-                                        <select formControlName="group" class="form-select" id="contact_group">
+                                        <select formControlName="group_name" class="form-select" id="contact_group">
                                             <option value="Familia">Familia</option>
                                             <option value="Trabalho">Trabalho</option>
                                             <option value="Amigos">Amigos</option>
@@ -226,14 +226,14 @@
                                 <div class="row">
                                     <h6 class="fw-bolder">Informações Gerais</h6>
                                     <div class="form-group col-md-3">
-                                        <label for="contact_group">Data de Criação</label>
-                                        <input formControlName="created_at" type="datetime"  class="form-control-plaintext" readonly id="contact_group">
+                                        <label for="contact_created_at">Data de Criação</label>
+                                        <input formControlName="created_at" type="datetime"  class="form-control-plaintext" readonly id="contact_created_at">
                                     </div>
 
                                     
                                     <div class="form-group col-md-3">
                                         <label for="contact_group">Grupo</label>
-                                        <input formControlName="group" type="text"  class="form-control-plaintext" readonly id="contact_group">
+                                        <input formControlName="group_name" type="text"  class="form-control-plaintext" readonly id="contact_group">
                                     </div>
 
                                     <div class="form-group col-md-3">

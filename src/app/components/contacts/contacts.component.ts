@@ -33,7 +33,7 @@ export class ContactsComponent implements OnInit{
       created_at: [''],
       date_birth: [''],
       address: [''],
-      group: [''],
+      group_name: [''],
       blocked: [''],
       favorite: ['']
     })
@@ -76,7 +76,7 @@ export class ContactsComponent implements OnInit{
       phone_number: contato.phone_number,
       email: contato.email,
       date_birth: contato.date_birth,
-      group: contato.group,
+      group_name: contato.group_name,
       created_at: contato.created_at,
       address: contato.address,
       favorite: contato.favorite,

@@ -8,7 +8,7 @@ export interface Contact{
     created_at: Date,
     date_birth: Date,
     address: string,
-    group: string,
+    group_name: string,
     blocked: boolean,
     favorite: boolean, 
 };

@@ -24,7 +24,7 @@ export class NewContactComponent {
       created_at: [''],
       date_birth: [''],
       address: [''],
-      group: [''],
+      group_name: [''],
       blocked: [''],
       favorite: ['']
     })
