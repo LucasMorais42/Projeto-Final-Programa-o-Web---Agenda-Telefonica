@@ -15,8 +15,8 @@ export class ContactsComponent implements OnInit{
   //listas de valores
   contacts: Contact[] = []; //armazena todos os contatos vindos da função carregarContatos
   filtred_contacts: Contact[] = []; //armazena os contatos filtrados
-  editing: boolean[] = []; //armazena a situação de um contato especifico, pra ver se ele está sendo editado ou não
-  viewing_details: boolean[] = []; //armazena a situação de contatos especificos, pra ver se estão vendo seus detalhes ou não
+  editing: { [id: number]: boolean } = {};   //armazena a situação de um contato especifico, pra ver se ele está sendo editado ou não
+  viewing_details: {[id: number]:boolean} = {} //armazena a situação de contatos especificos, pra ver se estão vendo seus detalhes ou não (map)
 
 
   formEditingContact: FormGroup;
@@ -27,7 +27,7 @@ export class ContactsComponent implements OnInit{
     this.formEditingContact = formBuilder.group({
       id: [''],
       name: [''],
-      nickname: [''],
+      nick_name: [''],
       phone_number: [''], 
       email: [''],
       created_at: [''],
@@ -60,39 +60,45 @@ export class ContactsComponent implements OnInit{
            this.filtred_contacts = [...this.contacts];
            //o map apenas aplica que para cada contato que veio do serviço, a mesma posição dele no viewing_details será false
            //ex: contato id 1 -> viewing_details[0] -> false
-           this.viewing_details = this.contacts.map(() => false);
-           this.editing = this.contacts.map(()=> false); 
+           this.contacts.forEach(c=>{
+              this.viewing_details[c.id] = false;
+              this.editing[c.id] = false;
+           })
         }
     })
   }
 
-  MostrarMais(contato: Contact, index: number, editando: boolean){
-    //troca, ou seja, clicou 1 vez está vendo detalhes, clicou de novo inverte para falso
-    this.viewing_details[index] =!this.viewing_details[index];
-    this.formEditingContact.patchValue({
-      id: contato.id,
-      name: contato.name,
-      nickname: contato.nickname,
-      phone_number: contato.phone_number,
-      email: contato.email,
-      date_birth: contato.date_birth,
-      group_name: contato.group_name,
-      created_at: contato.created_at,
-      address: contato.address,
-      favorite: contato.favorite,
-      blocked: contato.blocked
-    })
+
+  MostrarMais(contato: Contact, editando: boolean){
+    
+
+    //evita que tenha mais de um aberto
+
+     //troca, ou seja, clicou 1 vez está vendo detalhes, clicou de novo inverte para falso
+     this.viewing_details[contato.id] = !this.viewing_details[contato.id];
 
     //pega o valor do editando e assimila pra posição do array
-    if(this.editing[index]==true){
-      this.editing[index]=false;
+    if(this.editing[contato.id]==true){
+      this.editing[contato.id]=false;
     }
     else{
-      this.editing[index] = editando;
+      this.editing[contato.id] = editando;
     }
     
-    if(this.editing[index]){
-      this.formEditingContact.setValue(this.contacts[index]);
+    if(this.editing[contato.id]){
+      this.formEditingContact.patchValue({
+        id: contato.id,
+        name: contato.name,
+        nick_name: contato.nick_name,
+        phone_number: contato.phone_number,
+        email: contato.email,
+        date_birth: contato.date_birth,
+        group_name: contato.group_name,
+        created_at: contato.created_at,
+        address: contato.address,
+        favorite: contato.favorite,
+        blocked: contato.blocked
+      });
     }
   }
 

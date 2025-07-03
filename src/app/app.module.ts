@@ -11,7 +11,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BlockedsComponent } from './components/blockeds/blockeds.component';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
 
 
@@ -23,7 +22,6 @@ import { NewContactComponent } from './components/new-contact/new-contact.compon
     ContactsComponent,
     NavbarComponent,
     FavoritesComponent,
-    BlockedsComponent,
     NewContactComponent
   ],
   imports: [

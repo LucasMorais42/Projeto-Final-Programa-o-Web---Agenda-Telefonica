@@ -35,15 +35,15 @@
         <div class="col-12 col-md-10 col-lg-8 contatos">
             <!--Index será usado para passar um contato em específico para as funções de favoritar e listar mais dados
             Basicamente ele pega o indice (id) do contato em específico-->
-            <div *ngFor="let c of filtred_contacts; let i = index" class="contact-card card mb-3 border-0  rounded shadow-sm">
+            <div *ngFor="let c of filtred_contacts" class="contact-card card mb-3 border-0  rounded shadow-sm">
                 <div class="card-body d-flex flex-column justify-content-center p-4">
         
-                    <div  *ngIf="viewing_details[i]==false && editing[i]==false" class=" justify-content-center align-items-center mb-2">
+                    <div  *ngIf="viewing_details[c.id]==false && editing[c.id]==false" class=" justify-content-center align-items-center mb-2">
                       
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="fw-bold text-center">{{ c.id }}</div>
-                                <div class="fw-bold text-center">{{ c.name }} <span class="fw-light">({{c.nickname}})</span></div>
+                                <div class="fw-bold text-center">{{ c.name }} <span class="fw-light">({{c.nick_name}})</span></div>
                                 <div class="text-muted small text-center">Telefone: {{ c.phone_number }}</div>
                                 <div class="fw-medium text-center">E-mail: {{c.email}}</div>  
                             </div>
@@ -54,7 +54,7 @@
                                  <i [ngClass]="c.favorite? 'bi-star-fill': 'bi-star'"></i> {{c.favorite? 'Desfavoritar' : 'Favoritar'}}
                                 </button>
                         
-                                <button (click)="MostrarMais(c, i, true)" class="btn btn-sm btn-primary p-1">
+                                <button (click)="MostrarMais(c, true)" class="btn btn-sm btn-primary p-1">
                                     <i class="bi bi-pencil"></i> Editar Contato
                                 </button>
                                 <button (click)="deletarContato(c)" class="btn btn-sm btn-danger p-1">
@@ -65,7 +65,7 @@
                           
                         
                         <div class="row mt-5">
-                            <button (click)="MostrarMais(c, i, false)" class="btn btn-link p-0 text-decoration-none" style="font-size: 0.875rem;">
+                            <button (click)="MostrarMais(c, false)" class="btn btn-link p-0 text-decoration-none" style="font-size: 0.875rem;">
                                 <i class="bi bi-chevron-down me-2"></i>Mostrar Mais
                             </button>
                         </div>
@@ -74,10 +74,10 @@
 
                     <!--Chama a função vendo detalhes, passando o indice do contato, exemplo:
                     chama viewing_details passando o indice 2, ou seja, contato do id 2-->
-                    <div *ngIf="viewing_details[i]" class="mt-3 border-top pt-2">
+                    <div *ngIf="viewing_details[c.id]" class="mt-3 border-top pt-2">
                                            <!--Caso esteja editando o contato, vai abrir essas opções-->
                         <!--Se editing for true, entra aqui direto-->
-                        <div *ngIf="editing[i]" class="d-flex flex-row flex-wrap">
+                        <div *ngIf="editing[c.id]" class="d-flex flex-row flex-wrap">
                             <p class="fw-bolder">Edite os dados do contato</p>
                             <form [formGroup]="formEditingContact" class="form g-3 w-100">
                                 <div class="row">
@@ -93,17 +93,17 @@
                                    
                                     <div class="form-group col-md-4 fw-bold">
                                         <label for="contact_name">Nome</label>
-                                        <input formControlName="name" type="text" class="form-control mb-2" id="contact_nickname">
+                                        <input formControlName="name" type="text" class="form-control mb-2" id="contact_name">
                                     </div>
 
                                     <div class="form-group col-md-4 fw-bold">
                                         <label for="contact_nickname">Apelido</label>
-                                        <input formControlName="nickname" type="text" class="form-control mb-2" id="contact_nickname" >
+                                        <input formControlName="nick_name" type="text" class="form-control mb-2" id="contact_nickname" >
                                     </div>
 
                                     <div class="form-group col-md-4 fw-bold">
                                         <label for="contact_datebirth">Aniversário</label>
-                                        <input formControlName="date_birth" type="text" class="form-control mb-2" id="contact_datebirth" placeholder="Digite no formato DD-MM-YYYY">
+                                        <input formControlName="date_birth" type="date" class="form-control mb-2" id="contact_datebirth" placeholder="Digite no formato DD-MM-YYYY">
                                     </div>
                                     
                                 </div>
@@ -122,8 +122,8 @@
                                     </div>
 
                                     <div class="form-group col-md-4 fw-bold">
-                                        <label for="contact_adress">Endereço</label>
-                                        <input formControlName="address" type="text" class="form-control mb-2" id="contact_adress">
+                                        <label for="contact_address">Endereço</label>
+                                        <input formControlName="address" type="text" class="form-control mb-2" id="contact_address">
                                     </div>
                                 </div>
                                 <hr>
@@ -136,8 +136,8 @@
                                     </div>
 
                                     <div class="form-group col-md-3 fw-bold">
-                                        <label for="contact_group">Grupo do Contato</label>
-                                        <select formControlName="group_name" class="form-select" id="contact_group">
+                                        <label for="group_name">Grupo do Contato</label>
+                                        <select name="group_name" formControlName="group_name" class="form-select" id="group_name">
                                             <option value="Familia">Familia</option>
                                             <option value="Trabalho">Trabalho</option>
                                             <option value="Amigos">Amigos</option>
@@ -172,76 +172,73 @@
                         </div>
 
                         <!--- aqui vai funcionar do tipo, se editing = false, entra aqui por que o operador ! vai transformar em true>!-->
-                        <div *ngIf="!editing[i]" class="p-4">
+                        <div *ngIf="!editing[c.id]" class="p-4">
                             <p class="fw-bolder">Dados do contato</p>
-                            <form [formGroup]="formEditingContact" class="form g-3 w-100">
                                 <div class="row">
                                     <div class="fw-bold">
                                         <label for="contact_id">ID</label>
-                                        <input formControlName="id" type="text" class="form-control-plaintext" readonly>
+                                        <p name="contact_id">{{c.id}} </p>
                                     </div>
                                 </div>
-                              
                                 <hr>
                                 <div class="row">
                                     <h6 class="fw-bolder">Informações Pessoais</h6>
                                    
-                                    <div class="form-group col-md-4">
+                                    <div class="col-md-4">
                                         <label for="contact_name" class="fw-bold">Nome</label>
-                                        <input formControlName="name" type="text" class="form-control-plaintext" readonly id="contact_nickname">
+                                        <p name="contact_name"> {{c.name}}</p>
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="contact_nickname">Apelido</label>
-                                        <input formControlName="nickname" type="text" class="form-control-plaintext" readonly id="contact_nickname" >
+                                    <div class="col-md-4">
+                                        <label for="contact_nick_name" class="fw-bold">Apelido</label>
+                                        <p name="contact_nick_name"> {{c.nick_name}}</p>
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="contact_datebirth">Aniversário</label>
-                                        <input formControlName="date_birth" type="text" class="form-control-plaintext" readonly id="contact_datebirth">
+                                    <div class="col-md-4">
+                                        <label for="contact_datebirth" class="fw-bold">Aniversário</label>
+                                        <p name="contact_datebirth">{{c.date_birth}}</p>
                                     </div>
-                                    
                                 </div>
                                 <hr>
 
                                 <div class="row">
                                     <h6 class="fw-bolder">Informações de Contato</h6>
-                                    <div class="form-group col-md-4">
-                                        <label for="contact_email">E-mail</label>
-                                        <input formControlName="email" type="email" class="form-control-plaintext" readonly id="contact_email">
+                                    <div class="col-md-4">
+                                        <label for="contact_email" class="fw-bold">E-mail</label>
+                                        <p name="contact_email"> {{c.email}}</p>
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="contact_phone">Telefone</label>
-                                        <input formControlName="phone_number" type="text" class="form-control-plaintext" readonly id="contact_phone">
+                                    <div class="col-md-4">
+                                        <label for="contact_phone" class="fw-bold">Telefone</label>
+                                        <p name="contact_phone">{{c.phone_number}}</p>
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="contact_adress">Endereço</label>
-                                        <input formControlName="address" type="text" class="form-control-plaintext" readonly id="contact_adress">
+                                    <div class="col-md-4">
+                                        <label for="contact_adress" class="fw-bold">Endereço</label>
+                                        <p name="contact_address">{{c.address}}</p>
                                     </div>
                                 </div>
                                 <hr>
 
                                 <div class="row">
                                     <h6 class="fw-bolder">Informações Gerais</h6>
-                                    <div class="form-group col-md-3">
-                                        <label for="contact_created_at">Data de Criação</label>
-                                        <input formControlName="created_at" type="datetime"  class="form-control-plaintext" readonly id="contact_created_at">
+                                    <div class="col-md-3">
+                                        <label for="contact_created_at" class="fw-bold">Data de Criação</label>
+                                        <p name="contact_created_at">{{c.created_at}}</p>
                                     </div>
 
                                     
-                                    <div class="form-group col-md-3">
-                                        <label for="contact_group">Grupo</label>
-                                        <input formControlName="group_name" type="text"  class="form-control-plaintext" readonly id="contact_group">
+                                    <div class="col-md-3">
+                                        <label for="contact_group" class="fw-bold">Grupo</label>
+                                        <p name="contact_group">{{c.group_name}}</p>
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="col-md-3">
                                         <i [ngClass]="c.blocked? 'bi-lock-fill me-2':''"></i><span class="text-danger fw-bold">{{c.blocked? 'Bloqueado' : ''}}</span>
                                     </div>
 
                                     
-                                    <div class="form-group col-md-3">
+                                    <div class="col-md-3">
                                         <i [ngClass]="c.favorite? 'bi-star-fill me-2': ''"></i>
                                         <span class="text-warning fw-bold">{{c.favorite? 'Favorito' : ''}}</span>
                                     </div>
@@ -249,12 +246,12 @@
                                 </div>
 
                                 <div class="row d-flex justify-content-end pt-2">
-                                    <button (click)="MostrarMais(c, i, false)" class="btn btn-link p-0 text-decoration-none" style="font-size: 0.875rem;">
+                                    <button (click)="MostrarMais(c, false)" class="btn btn-link p-0 text-decoration-none" style="font-size: 0.875rem;">
                                         <i class="bi bi-chevron-up me-2"></i>Mostrar Menos
                                     </button>
                                 </div>
                            
-                            </form>
+                      
                           
                         </div>
                     </div>

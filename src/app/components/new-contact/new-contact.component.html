@@ -15,7 +15,7 @@
 
                 <div class="form-group col-md-6 fw-bold">
                     <label for="contact_nickname">Apelido</label>
-                    <input formControlName="nickname"  type="text" class="form-control" id="contact_nickname" placeholder="Digite o apelido do contato">
+                    <input formControlName="nick_name"  type="text" class="form-control" id="contact_nickname" placeholder="Digite o apelido do contato">
                 </div>
 
             </div>
@@ -46,8 +46,8 @@
            
 
         <div class="form-group fw-bold">
-          <label for="contact_group">Grupo do Contato</label>
-              <select formControlName="group_name" class="form-control" id="contact_group">
+          <label for="group_name">Grupo do Contato</label>
+              <select formControlName="group_name" class="form-control" name="group_name" id="group_name">
                 <option value="Familia">Familia</option>
                 <option value="Trabalho">Trabalho</option>
                 <option value="Amigos">Amigos</option>
@@ -74,7 +74,7 @@
             </label>
           </div>
 
-          <button (click)="novoContato()" type="submit" class="btn btn-success mt-4"><i class="bi bi-person-plus-fill me-1"></i> Adicionar contato</button>
+          <button (click)="novoContato()" type="button" class="btn btn-success mt-4"><i class="bi bi-person-plus-fill me-1"></i> Adicionar contato</button>
             
     </form>
   </div>
