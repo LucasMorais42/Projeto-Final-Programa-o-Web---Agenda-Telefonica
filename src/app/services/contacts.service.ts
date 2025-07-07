@@ -12,7 +12,7 @@ export class ContactsService {
 
   constructor(private http:HttpClient) { }
  
-  private apiUrl = "http://localhost:8080/contacts";
+  private apiUrl = "https://lucasmorais.duckdns.org/contacts";
 
   getAllContacts(): Observable<Contact[]>{
     return this.http.get<Contact[]>(this.apiUrl);
